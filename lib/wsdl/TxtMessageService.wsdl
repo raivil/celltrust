@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="urn:message.soap.primemessage.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:bns="urn:bean.message.soap.primemessage.com" xmlns:impl="urn:message.soap.primemessage.com" xmlns:intf="urn:message.soap.primemessage.com" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="urn:message.soap.primemessage.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+<!--WSDL created by Apache Axis version: 1.3
+Built on Oct 05, 2005 (05:23:37 EDT)-->
+
+  <wsdl:types>
+
+    <schema targetNamespace="urn:bean.message.soap.primemessage.com" xmlns="http://www.w3.org/2001/XMLSchema">
+
+      <import namespace="urn:message.soap.primemessage.com"/>
+
+      <complexType name="Recipient">
+
+        <sequence>
+
+          <element name="carrierId" nillable="true" type="xsd:string"/>
+
+          <element name="deliveryType" type="xsd:int"/>
+
+          <element name="destination" nillable="true" type="xsd:string"/>
+
+          <element name="firstName" nillable="true" type="xsd:string"/>
+
+          <element name="lastName" nillable="true" type="xsd:string"/>
+
+        </sequence>
+
+      </complexType>
+
+      <element name="Recipient" type="bns:Recipient"/>
+
+
+      <complexType name="RecipientList">
+
+        <complexContent>
+
+          <restriction base="soapenc:Array">
+
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="bns:Recipient[]"/>
+
+          </restriction>
+
+        </complexContent>
+
+      </complexType>
+
+      <element name="RecipientList" type="bns:RecipientList"/>
+
+
+      <complexType name="Reply">
+
+        <sequence>
+
+          <element name="returnCode" type="xsd:int"/>
+
+          <element name="message" nillable="true" type="xsd:string"/>
+
+          <element name="smsMessageId" nillable="true" type="xsd:string"/>
+
+          <element name="emailMessageId" nillable="true" type="xsd:string"/>
+
+          <element name="voiceMessageId" nillable="true" type="xsd:string"/>
+
+        </sequence>
+
+      </complexType>
+
+      <element name="Reply" type="bns:Reply"/>
+
+
+      <complexType name="SchedulerTask">
+
+        <sequence>
+
+          <element name="fromDay" type="xsd:int"/>
+
+          <element name="fromHour" type="xsd:int"/>
+
+          <element name="fromMin" type="xsd:int"/>
+
+          <element name="fromMonth" type="xsd:int"/>
+
+          <element name="fromSec" type="xsd:int"/>
+
+          <element name="fromYear" type="xsd:int"/>
+
+          <element name="intervalUnit" type="xsd:int"/>
+
+          <element name="intervalValue" type="xsd:int"/>
+
+          <element name="numberOfExecutions" type="xsd:int"/>
+
+          <element name="toDay" type="xsd:int"/>
+
+          <element name="toHour" type="xsd:int"/>
+
+          <element name="toMin" type="xsd:int"/>
+
+          <element name="toMonth" type="xsd:int"/>
+
+          <element name="toSec" type="xsd:int"/>
+
+          <element name="toYear" type="xsd:int"/>
+
+        </sequence>
+
+      </complexType>
+
+      <element name="SchedulerTask" type="bns:SchedulerTask"/>
+
+
+      <complexType name="TemplateParam">
+
+        <sequence>
+
+          <element name="tag" nillable="true" type="xsd:string"/>
+
+          <element name="value" nillable="true" type="xsd:string"/>
+
+        </sequence>
+
+      </complexType>
+
+      <element name="TemplateParam" type="bns:TemplateParam"/>
+
+
+      <complexType name="TemplateParamList">
+
+        <complexContent>
+
+          <restriction base="soapenc:Array">
+
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="bns:TemplateParam[]"/>
+
+          </restriction>
+
+        </complexContent>
+
+      </complexType>
+
+      <element name="TemplateParamList" type="bns:TemplateParamList"/>
+
+
+      <complexType name="ExtraParams">
+
+        <sequence>
+
+          <element name="destPort" nillable="true" type="xsd:int"/>
+
+          <element name="pricePointValue" nillable="true" type="xsd:int"/>
+
+          <element name="requireDoubleOptin" nillable="true" type="xsd:boolean"/>
+
+          <element name="shortcode" nillable="true" type="xsd:string"/>
+
+          <element name="sender" nillable="true" type="xsd:string"/>
+
+        </sequence>
+
+      </complexType>
+
+      <element name="ExtraParams" type="bns:ExtraParams"/>
+
+
+    </schema>
+
+  </wsdl:types>
+
+
+    <wsdl:message name="sendSMSRequest">
+
+        <wsdl:part name="nickname" type="soapenc:string"/>
+
+        <wsdl:part name="destination" type="soapenc:string"/>
+
+        <wsdl:part name="message" type="soapenc:string"/>
+
+        <wsdl:part name="params" type="bns:ExtraParams"/>
+
+    </wsdl:message>
+
+
+    <wsdl:message name="sendSMSResponse">
+
+        <wsdl:part name="sendSMSReturn" type="bns:Reply"/>
+
+    </wsdl:message>
+
+
+    <wsdl:message name="sendWAPPushMessageRequest">
+
+        <wsdl:part name="nickname" type="soapenc:string"/>
+
+        <wsdl:part name="text" type="soapenc:string"/>
+
+        <wsdl:part name="wapPushUrl" type="soapenc:string"/>
+
+        <wsdl:part name="recipients" type="bns:RecipientList"/>
+
+        <wsdl:part name="adminEmail" type="soapenc:string"/>
+
+    </wsdl:message>
+
+
+    <wsdl:message name="sendWAPPushMessageResponse">
+
+        <wsdl:part name="sendWAPPushMessageReturn" type="bns:Reply"/>
+
+    </wsdl:message>
+
+
+    <wsdl:message name="sendMessageAsTemplateRequest">
+
+        <wsdl:part name="nickname" type="soapenc:string"/>
+
+        <wsdl:part name="subject" type="soapenc:string"/>
+
+        <wsdl:part name="template" type="soapenc:string"/>
+
+        <wsdl:part name="tags" type="bns:TemplateParamList"/>
+ 
+        <wsdl:part name="recipients" type="bns:RecipientList"/>
+
+        <wsdl:part name="adminEmail" type="soapenc:string"/>
+
+        <wsdl:part name="params" type="bns:ExtraParams"/>
+
+    </wsdl:message>
+
+
+    <wsdl:message name="sendMessageAsTemplateResponse">
+
+        <wsdl:part name="sendMessageAsTemplateReturn" type="bns:Reply"/>
+
+    </wsdl:message>
+
+
+    <wsdl:message name="sendMessageRequest">
+
+        <wsdl:part name="nickname" type="soapenc:string"/>
+
+        <wsdl:part name="subject" type="soapenc:string"/>
+
+        <wsdl:part name="message" type="soapenc:string"/>
+
+        <wsdl:part name="recipients" type="bns:RecipientList"/>
+
+        <wsdl:part name="adminEmail" type="soapenc:string"/>
+
+        <wsdl:part name="params" type="bns:ExtraParams"/>
+
+    </wsdl:message>
+
+
+    <wsdl:message name="sendMessageResponse">
+
+        <wsdl:part name="sendMessageReturn" type="bns:Reply"/>
+
+    </wsdl:message>
+
+
+    <wsdl:message name="sendEmailRequest">
+
+        <wsdl:part name="nickname" type="soapenc:string"/>
+
+        <wsdl:part name="destination" type="soapenc:string"/>
+
+        <wsdl:part name="subject" type="soapenc:string"/>
+
+        <wsdl:part name="message" type="soapenc:string"/>
+
+    </wsdl:message>
+
+
+    <wsdl:message name="sendEmailResponse">
+
+        <wsdl:part name="sendEmailReturn" type="bns:Reply"/>
+
+    </wsdl:message>
+
+
+    <wsdl:message name="scheduleMessageRequest">
+
+        <wsdl:part name="nickname" type="soapenc:string"/>
+
+        <wsdl:part name="subject" type="soapenc:string"/>
+
+        <wsdl:part name="message" type="soapenc:string"/>
+
+        <wsdl:part name="recipients" type="bns:RecipientList"/>
+
+        <wsdl:part name="adminEmail" type="soapenc:string"/>
+
+        <wsdl:part name="task" type="bns:SchedulerTask"/>
+
+    </wsdl:message>
+
+
+    <wsdl:message name="scheduleMessageResponse">
+
+        <wsdl:part name="scheduleMessageReturn" type="bns:Reply"/>
+
+    </wsdl:message>
+
+
+    <wsdl:message name="scheduleMessageAsTemplateRequest">
+
+        <wsdl:part name="nickname" type="soapenc:string"/>
+
+        <wsdl:part name="subject" type="soapenc:string"/>
+
+        <wsdl:part name="template" type="soapenc:string"/>
+
+        <wsdl:part name="tags" type="bns:TemplateParamList"/>
+
+        <wsdl:part name="recipients" type="bns:RecipientList"/>
+
+        <wsdl:part name="adminEmail" type="soapenc:string"/>
+
+        <wsdl:part name="task" type="bns:SchedulerTask"/>
+
+    </wsdl:message>
+
+
+    <wsdl:message name="scheduleMessageAsTemplateResponse">
+
+        <wsdl:part name="scheduleMessageAsTemplateReturn" type="bns:Reply"/>
+
+    </wsdl:message>
+
+
+    <wsdl:portType name="TxTMessageService">
+
+        <wsdl:operation name="sendMessage" parameterOrder="nickname       subject message recipients adminEmail params">
+
+            <wsdl:input message="impl:sendMessageRequest" name="sendMessageRequest"/>
+
+         <wsdl:output message="impl:sendMessageResponse" name="sendMessageResponse"/>
+
+        </wsdl:operation>
+
+
+        <wsdl:operation name="sendSMS" parameterOrder="nickname          destination message params">
+
+            <wsdl:input message="impl:sendSMSRequest" name="sendSMSRequest"/>
+
+            <wsdl:output message="impl:sendSMSResponse" name="sendSMSResponse"/>
+
+        </wsdl:operation>
+
+
+        <wsdl:operation name="sendEmail" parameterOrder="nickname destination subject message">
+
+            <wsdl:input message="impl:sendEmailRequest" name="sendEmailRequest"/>
+
+            <wsdl:output message="impl:sendEmailResponse" name="sendEmailResponse"/>
+
+        </wsdl:operation>
+
+
+        <wsdl:operation name="scheduleMessage" parameterOrder="nickname subject message recipients adminEmail task">
+
+            <wsdl:input message="impl:scheduleMessageRequest" name="scheduleMessageRequest"/>
+
+            <wsdl:output message="impl:scheduleMessageResponse" name="scheduleMessageResponse"/>
+
+        </wsdl:operation>
+
+
+        <wsdl:operation name="sendWAPPushMessage" parameterOrder="nickname text wapPushUrl recipients adminEmail">
+
+            <wsdl:input message="impl:sendWAPPushMessageRequest" name="sendWAPPushMessageRequest"/>
+
+            <wsdl:output message="impl:sendWAPPushMessageResponse" name="sendWAPPushMessageResponse"/>
+
+        </wsdl:operation>
+
+
+        <wsdl:operation name="sendMessageAsTemplate" parameterOrder="nickname subject template tags recipients          adminEmail params">
+
+            <wsdl:input message="impl:sendMessageAsTemplateRequest" name="sendMessageAsTemplateRequest"/>
+
+            <wsdl:output message="impl:sendMessageAsTemplateResponse" name="sendMessageAsTemplateResponse"/>
+
+        </wsdl:operation>
+
+
+        <wsdl:operation name="scheduleMessageAsTemplate" parameterOrder="nickname subject template tags recipients adminEmail task">
+
+            <wsdl:input message="impl:scheduleMessageAsTemplateRequest" name="scheduleMessageAsTemplateRequest"/>
+
+            <wsdl:output message="impl:scheduleMessageAsTemplateResponse" name="scheduleMessageAsTemplateResponse"/>
+
+        </wsdl:operation>
+
+
+    </wsdl:portType>
+
+
+    <wsdl:binding name="TxTMessageServiceSoapBinding" type="impl:TxTMessageService">
+
+        <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+
+        <wsdl:operation name="sendMessage">
+
+            <wsdlsoap:operation soapAction=""/>
+
+            <wsdl:input name="sendMessageRequest">
+
+                <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="tns:TxTMessageService" use="encoded"/>
+
+            </wsdl:input>
+
+            <wsdl:output name="sendMessageResponse">
+
+                <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="encoded"/>
+
+            </wsdl:output>
+
+        </wsdl:operation>
+
+
+        <wsdl:operation name="sendSMS">
+
+            <wsdlsoap:operation soapAction=""/>
+
+            <wsdl:input name="sendSMSRequest">
+
+                <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="tns:TxTMessageService" use="encoded"/>
+
+            </wsdl:input>
+
+
+            <wsdl:output name="sendSMSResponse">
+
+                <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="encoded"/>
+
+            </wsdl:output>
+
+        </wsdl:operation>
+
+
+        <wsdl:operation name="sendEmail">
+
+            <wsdlsoap:operation soapAction=""/>
+
+            <wsdl:input name="sendEmailRequest">
+
+                <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="tns:TxTMessageService" use="encoded"/>
+
+            </wsdl:input>
+
+
+            <wsdl:output name="sendEmailResponse">
+
+                <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="encoded"/>
+
+            </wsdl:output>
+
+        </wsdl:operation>
+
+
+        <wsdl:operation name="scheduleMessage">
+
+            <wsdlsoap:operation soapAction=""/>
+
+            <wsdl:input name="scheduleMessageRequest">
+
+                <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="tns:TxTMessageService" use="encoded"/>
+
+            </wsdl:input>
+
+
+            <wsdl:output name="scheduleMessageResponse">
+
+                <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="encoded"/>
+
+            </wsdl:output>
+
+        </wsdl:operation>
+
+
+        <wsdl:operation name="sendWAPPushMessage">
+
+            <wsdlsoap:operation soapAction=""/>
+
+            <wsdl:input name="sendWAPPushMessageRequest">
+
+                <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="tns:TxTMessageService" use="encoded"/>
+
+            </wsdl:input>
+
+
+            <wsdl:output name="sendWAPPushMessageResponse">
+
+                <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="encoded"/>
+
+            </wsdl:output>
+
+        </wsdl:operation>
+
+
+        <wsdl:operation name="sendMessageAsTemplate">
+
+            <wsdlsoap:operation soapAction=""/>
+
+            <wsdl:input name="sendMessageAsTemplateRequest">
+
+                <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="tns:TxTMessageService" use="encoded"/>
+
+            </wsdl:input>
+
+
+            <wsdl:output name="sendMessageAsTemplateResponse">
+
+                <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="encoded"/>
+
+            </wsdl:output>
+
+        </wsdl:operation>
+
+
+        <wsdl:operation name="scheduleMessageAsTemplate">
+
+            <wsdlsoap:operation soapAction=""/>
+
+            <wsdl:input name="scheduleMessageAsTemplateRequest">
+
+                <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="tns:TxTMessageService" use="encoded"/>
+
+            </wsdl:input>
+
+
+            <wsdl:output name="scheduleMessageAsTemplateResponse">
+
+                <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="encoded"/>
+
+            </wsdl:output>
+
+        </wsdl:operation>
+
+
+    </wsdl:binding>
+
+    <wsdl:service name="TxTMessageServiceService">
+
+        <wsdl:port binding="impl:TxTMessageServiceSoapBinding" name="TxTMessageService">
+
+            <wsdlsoap:address location="https://gateway.celltrust.net/pmws/services/TxTMessageService"/>
+
+        </wsdl:port>
+
+    </wsdl:service>
+
+
+</wsdl:definitions>
