@@ -66,7 +66,7 @@ Please report all bugs/issues via the GitHub issue tracker.
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/celltrust/fork )
+1. Fork it ( https://github.com/raivil/celltrust/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
