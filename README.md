@@ -1,6 +1,8 @@
 # Celltrust
 
-TODO: Write a gem description
+
+A Ruby wrapper for the [Celltrust API](http://www.celltrust.com/docs/CellTrust_SoftwareDevelopmentKit.pdf).
+
 
 ## Installation
 
@@ -20,7 +22,47 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Quick start (sending a message)
+-------------------------------
+
+First you need to load up the gem and construct a Celltrust::Client object
+with your API credentials, like this:
+
+```ruby
+require 'celltrust'
+
+# simple sms
+celltrust = Celltrust::SimpleSMSClient.new('username', 'password', 'nickname')
+
+#secure sms
+celltrust = Celltrust::SecureSMSClient.new('username', 'password', 'nickname')
+```
+
+Sending a SMS
+
+```ruby
+response = celltrust.send_sms('number', 'message', params = {})
+
+if response.ok?
+  # do something with response.object
+else
+  puts response.error?
+  puts response.error_details
+  # handle the error
+end
+```
+
+
+Troubleshooting
+---------------
+
+Remember that phone numbers should be specified in international format.
+
+The Celltrust documentation contains a [list of error codes](http://www.celltrust.com/docs/CellTrust_SoftwareDevelopmentKit.pdf)
+which may be useful if you have problems sending a message.
+
+Please report all bugs/issues via the GitHub issue tracker.
+
 
 ## Contributing
 
